@@ -2,18 +2,26 @@
 
 ![Nong KaoJai Codex Pet](./docs/pet-gif.gif)
 
-Nong Kaojai is a Codex custom pet based on the Kaojai.ai teal chat-bubble mascot.
+Nong Kaojai is a Codex custom pet based on the Kaojai.ai teal chat-bubble mascot. This folder is one toy inside the broader Kaojai toys and fun widgets collection.
 
-The pet package contains:
+## Package Contents
 
 - `pet.json` - Codex pet manifest.
 - `spritesheet.webp` - 1536x1872 animated pet atlas.
 - `scripts/install.sh` - local installer for Codex.
+- `docs/pet-gif.gif` - quick animated preview.
 - `docs/contact-sheet.png` - visual QA contact sheet.
 
 ## Install In Codex
 
-From this repository:
+From the repository root:
+
+```sh
+cd codex-pet
+./scripts/install.sh
+```
+
+Or from this folder:
 
 ```sh
 ./scripts/install.sh
@@ -44,6 +52,14 @@ nong-kaojai/
 
 The manifest points to `spritesheet.webp` by relative path, so both files must stay in the same pet folder.
 
+## Animation Notes
+
+- `idle` keeps the mascot calm with subtle blink and bob motion.
+- `running-right` and `running-left` move the speech-bubble mascot without adding legs.
+- `waving` uses a small temporary arm for the greeting.
+- `running` is the active/in-progress loop and includes the yellow antenna blink.
+- Unused atlas cells are transparent.
+
 ## QA
 
 The atlas was generated through the `hatch-pet` workflow and validated with:
@@ -53,4 +69,4 @@ The atlas was generated through the `hatch-pet` workflow and validated with:
 - Transparent unused cells.
 - No validation errors or warnings.
 
-The `running` row includes a yellow antenna blink action.
+See [`docs/contact-sheet.png`](./docs/contact-sheet.png) for the full row-by-row preview.
