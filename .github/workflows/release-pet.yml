@@ -1,0 +1,56 @@
+name: Build and release pet
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nong-kaojai-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Validate pet manifest
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          pet_dir = Path("codex-pet")
+          manifest = json.loads((pet_dir / "pet.json").read_text())
+          assert manifest["id"] == "nong-kaojai"
+          assert manifest["spriteVersionNumber"] == 2
+          assert manifest["spritesheetPath"] == "spritesheet.webp"
+          assert (pet_dir / manifest["spritesheetPath"]).is_file()
+          PY
+
+      - name: Build release archive
+        run: ./codex-pet/scripts/build.sh
+
+      - name: Verify archive contents
+        run: |
+          unzip -Z1 codex-pet/dist/nong-kaojai-v2.zip | sort
+          test "$(unzip -Z1 codex-pet/dist/nong-kaojai-v2.zip | wc -l | tr -d ' ')" = "3"
+
+      - name: Create GitHub prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_ASSET: codex-pet/dist/nong-kaojai-v2.zip
+        run: |
+          release_tag="build-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}"
+          gh release create "$release_tag" \
+            "$RELEASE_ASSET#N'KaoJai v2 pet package" \
+            --target "$GITHUB_SHA" \
+            --title "N'KaoJai v2 build ${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}" \
+            --notes "Automated pet package built from commit $GITHUB_SHA." \
+            --prerelease

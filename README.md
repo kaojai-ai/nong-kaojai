@@ -10,6 +10,8 @@ This repository is a home for lightweight experiments that make internal tools f
 | --- | --- |
 | [`codex-pet`](./codex-pet) | Nong Kaojai, a custom Codex pet based on the Kaojai.ai chat-bubble mascot. |
 
+Download the newest installable ZIP from [GitHub Releases](https://github.com/kaojai-ai/nong-kaojai/releases).
+
 ## Repository Guidelines
 
 - Keep each toy self-contained.
