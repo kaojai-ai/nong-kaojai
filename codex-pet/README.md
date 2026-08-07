@@ -4,9 +4,12 @@
 
 Nong Kaojai is a Codex custom pet based on the Kaojai.ai teal chat-bubble mascot. This folder is one toy inside the broader Kaojai toys and fun widgets collection.
 
+Current package version: **v2.0.0**
+
 ## Package Contents
 
 - `pet.json` - Codex pet manifest.
+- `VERSION` - semantic package version.
 - `spritesheet.webp` - 1536x2288 v2 animated pet atlas.
 - `scripts/install.sh` - local installer for Codex.
 - `docs/pet-gif.gif` - quick animated preview.
@@ -37,7 +40,7 @@ Restart Codex after installing if the pet list does not refresh immediately.
 
 ## Install From A Release
 
-Download `nong-kaojai-v2.zip` from [GitHub Releases](https://github.com/kaojai-ai/nong-kaojai/releases), then extract it into:
+Download `nong-kaojai-v2.0.0.zip` from [GitHub Releases](https://github.com/kaojai-ai/nong-kaojai/releases), then extract it into:
 
 ```text
 ${CODEX_HOME:-$HOME/.codex}/pets
@@ -92,4 +95,15 @@ From the repository root:
 ./codex-pet/scripts/build.sh
 ```
 
-This creates `codex-pet/dist/nong-kaojai-v2.zip`. Every push to `main` runs the same build and publishes the ZIP as a uniquely tagged GitHub prerelease.
+This creates `codex-pet/dist/nong-kaojai-v2.0.0.zip`.
+
+## Versioning And Releases
+
+Package versions follow [Semantic Versioning](https://semver.org/) and are stored in `VERSION`. Every push to `main` validates and builds the package. Pushing the matching `vMAJOR.MINOR.PATCH` tag publishes a stable GitHub Release with the versioned ZIP attached.
+
+Example:
+
+```sh
+git tag -a v2.0.0 -m "N'KaoJai v2.0.0"
+git push origin v2.0.0
+```

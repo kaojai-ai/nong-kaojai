@@ -14,6 +14,8 @@ This repository is a home for lightweight experiments that make internal tools f
 
 Download the newest installable ZIP from [GitHub Releases](https://github.com/kaojai-ai/nong-kaojai/releases).
 
+Current version: **v2.0.0**
+
 ## Repository Guidelines
 
 - Keep each toy self-contained.
@@ -28,8 +30,11 @@ Download the newest installable ZIP from [GitHub Releases](https://github.com/ka
   README.md
   codex-pet/
     README.md
+    VERSION
     pet.json
     spritesheet.webp
-    scripts/install.sh
+    scripts/
+      build.sh
+      install.sh
     docs/
 ```

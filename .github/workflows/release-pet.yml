@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - "v*.*.*"
   workflow_dispatch:
 
 permissions:
@@ -24,14 +26,20 @@ jobs:
         run: |
           python3 - <<'PY'
           import json
+          import os
           from pathlib import Path
 
           pet_dir = Path("codex-pet")
           manifest = json.loads((pet_dir / "pet.json").read_text())
+          version = (pet_dir / "VERSION").read_text().strip()
           assert manifest["id"] == "nong-kaojai"
           assert manifest["spriteVersionNumber"] == 2
           assert manifest["spritesheetPath"] == "spritesheet.webp"
           assert (pet_dir / manifest["spritesheetPath"]).is_file()
+          assert len(version.split(".")) == 3
+          assert all(part.isdigit() for part in version.split("."))
+          if os.environ["GITHUB_REF_TYPE"] == "tag":
+              assert os.environ["GITHUB_REF_NAME"] == f"v{version}"
           PY
 
       - name: Build release archive
@@ -39,18 +47,21 @@ jobs:
 
       - name: Verify archive contents
         run: |
-          unzip -Z1 codex-pet/dist/nong-kaojai-v2.zip | sort
-          test "$(unzip -Z1 codex-pet/dist/nong-kaojai-v2.zip | wc -l | tr -d ' ')" = "3"
+          version=$(cat codex-pet/VERSION)
+          archive="codex-pet/dist/nong-kaojai-v${version}.zip"
+          unzip -Z1 "$archive" | sort
+          test "$(unzip -Z1 "$archive" | wc -l | tr -d ' ')" = "3"
 
-      - name: Create GitHub prerelease
+      - name: Create versioned GitHub release
+        if: startsWith(github.ref, 'refs/tags/v')
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE_ASSET: codex-pet/dist/nong-kaojai-v2.zip
         run: |
-          release_tag="build-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}"
-          gh release create "$release_tag" \
-            "$RELEASE_ASSET#N'KaoJai v2 pet package" \
+          version=$(cat codex-pet/VERSION)
+          release_asset="codex-pet/dist/nong-kaojai-v${version}.zip"
+          gh release create "$GITHUB_REF_NAME" \
+            "$release_asset#N'KaoJai $GITHUB_REF_NAME pet package" \
             --target "$GITHUB_SHA" \
-            --title "N'KaoJai v2 build ${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}" \
-            --notes "Automated pet package built from commit $GITHUB_SHA." \
-            --prerelease
+            --title "N'KaoJai $GITHUB_REF_NAME" \
+            --verify-tag \
+            --generate-notes
