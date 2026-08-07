@@ -4,6 +4,8 @@ Small playful assets, Codex pets, and fun widgets for Kaojai AI.
 
 This repository is a home for lightweight experiments that make internal tools feel more alive without becoming product code. Each toy should live in its own folder with a short README, install instructions, and any assets needed to use it.
 
+![N'KaoJai v2 running in Codex beside its animation atlas](./codex-pet/docs/codex-pet-v2-overview.png)
+
 ## Toys
 
 | Toy | Description |
