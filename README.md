@@ -14,7 +14,7 @@ This repository is a home for lightweight experiments that make internal tools f
 
 Download the newest installable ZIP from [GitHub Releases](https://github.com/kaojai-ai/nong-kaojai/releases).
 
-Current version: **v2.0.0**
+Current version: **v2.0.1**
 
 ## Repository Guidelines
 

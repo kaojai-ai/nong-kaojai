@@ -4,7 +4,7 @@
 
 Nong Kaojai is a Codex custom pet based on the Kaojai.ai teal chat-bubble mascot. This folder is one toy inside the broader Kaojai toys and fun widgets collection.
 
-Current package version: **v2.0.0**
+Current package version: **v2.0.1**
 
 ## Package Contents
 
@@ -71,7 +71,7 @@ The manifest points to `spritesheet.webp` by relative path, so both files must s
 - `running-right` and `running-left` move the speech-bubble mascot without adding legs.
 - `waving` uses a small temporary arm for the greeting.
 - `running` is the active/in-progress loop and includes the yellow antenna blink.
-- Rows 9-10 provide the v2 direction frames required by current Codex versions.
+- Rows 9-10 retain the normal face for v2 compatibility; the eye-rolling look animation is intentionally disabled.
 - Unused atlas cells are transparent.
 
 ## QA
