@@ -1,10 +1,11 @@
 # Nong Kaojai Codex Pet
 
-![Nong KaoJai Codex Pet](./docs/nong-kaojai-gif.gif)
 
 Nong Kaojai is a Codex custom pet based on the Kaojai.ai teal chat-bubble mascot. This folder is one toy inside the broader Kaojai toys and fun widgets collection.
 
 Current package version: **v2.0.1**
+
+![Nong KaoJai Codex Pet](./docs/nong-kaojai-gif.gif)
 
 ## Package Contents
 
